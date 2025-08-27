@@ -1,0 +1,10 @@
+fastapi[all]
+uvicorn
+torch
+torchvision
+torchio
+diffusers
+transformers
+accelerate
+python-dotenv
+fastapi-mail
