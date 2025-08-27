@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-freeze.txt
+
+# Stable Diffusion / Models
+# It's good practice to not track models or generated content in Git
+output_images/
+loras/
+
+# IDE / OS specific
+.vscode/
+.idea/
+.DS_Store
