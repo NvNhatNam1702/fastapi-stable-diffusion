@@ -8,7 +8,7 @@ env/
 venv/
 pip-log.txt
 pip-freeze.txt
-
+.env
 # Stable Diffusion / Models
 # It's good practice to not track models or generated content in Git
 output_images/
