@@ -7,14 +7,9 @@ from config.settings import settings
 
 app = FastAPI(title="Generative AI API")
 
-# --- Pydantic Models for API Requests and Responses ---
-
-class TextToImageRequest(BaseModel):
-    model_name: str = "stable-diffusion-v1-5"
-    prompt: str
-
+# API Models
 class S3ImageRequest(BaseModel):
-    s3_image_url: HttpUrl # Pydantic validates that this is a valid URL
+    s3_image_url: HttpUrl # No more target_storage
 
 class TaskResponse(BaseModel):
     task_id: str
@@ -24,19 +19,15 @@ class TaskStatusResponse(BaseModel):
     status: str
     result: Optional[dict] = None
 
-
-# --- API Endpoints ---
-
-@app.post(f"{settings.API_V1_STR}/generate-image", response_model=TaskResponse)
-async def start_text_to_image_generation(request: TextToImageRequest):
-    """Create a text-to-image generation task."""
+# API Endpoints
+@app.post(f"{settings.API_V1_STR}/generate-3d-from-s3", response_model=TaskResponse)
+async def start_s3_image_to_3d_generation(request: S3ImageRequest):
+    """Accepts a MinIO S3 URL and creates a task to generate a 3D model."""
     task = celery_app.send_task(
-        "tasks.generate_image",
-        args=[request.model_name, request.prompt]
+        "tasks.generate_3d_model_from_s3_image",
+        args=[str(request.s3_image_url)]
     )
     return TaskResponse(task_id=task.id)
-
-
 @app.post(f"{settings.API_V1_STR}/generate-3d-from-s3", response_model=TaskResponse)
 async def start_s3_image_to_3d_generation(request: S3ImageRequest):
     """Accepts an S3 URL and creates a task to generate a 3D model."""

@@ -10,9 +10,14 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str = "redis://redis:6379/0"
     
     #S3 settings 
-    AWS_ACCESS_KEY_ID: str
-    AWS_SECRET_ACCESS_KEY: str
-    AWS_REGION: str
+    # AWS_ACCESS_KEY_ID: str
+    # AWS_SECRET_ACCESS_KEY: str
+    # AWS_REGION: str
+    # S3_BUCKET_NAME: str
+    S3_ENDPOINT_URL: str
+    S3_ACCESS_KEY_ID: str
+    S3_SECRET_ACCESS_KEY: str
+    S3_REGION: str
     S3_BUCKET_NAME: str
     # Model Configurations
     # This dictionary will hold settings for all our models
